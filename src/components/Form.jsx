@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getCoinsAPI, setExpenses as setExpensesAction } from '../actions';
 import { SelectWithOptions } from './SelectWithOptions';
 import getCoinsFromApi from '../services/coinsAPI';
+import CoinOptions from './CoinOptions';
 
 class Form extends Component {
   constructor(props) {
@@ -84,16 +85,7 @@ class Form extends Component {
           <label htmlFor="currency">
             Moeda
             <select onChange={ this.handleInput } name="currency" id="currency">
-              {coins
-                .map((coin) => (
-                  <option
-                    key={ coin.code + coin.codein }
-                    value={ coin.code }
-                    name="currency"
-                  >
-                    {coin.code}
-
-                  </option>))}
+              <CoinOptions coins={ coins } />
             </select>
           </label>
           <SelectWithOptions handleInput={ this.handleInput } />

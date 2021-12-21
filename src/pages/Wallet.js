@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
 import Table from '../components/Table';
+import EditExpense from '../components/EditExpense';
 
 class Wallet extends React.Component {
   constructor() {
@@ -24,7 +25,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { store: { user } } = this.props;
+    const { store: { user, wallet: { editing } } } = this.props;
     const { totalValue } = this.state;
     return (
       <main>
@@ -40,7 +41,8 @@ class Wallet extends React.Component {
             <span data-testid="header-currency-field">BRL</span>
           </div>
         </header>
-        <Form handleTotal={ this.handleTotal } />
+        { editing ? <EditExpense />
+          : <Form handleTotal={ this.handleTotal } />}
         <Table handleTotal={ this.handleTotal } />
       </main>
     );

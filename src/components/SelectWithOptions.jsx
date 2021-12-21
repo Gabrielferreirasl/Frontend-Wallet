@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 
 export class SelectWithOptions extends Component {
   render() {
-    const { handleInput } = this.props;
+    const { handleInput, defaultSelect } = this.props;
     return (
       <>
         <label htmlFor="pagamento">
           Método de pagamento
-          <select onChange={ handleInput } name="method" id="pagamento">
+          <select
+            value={ defaultSelect && defaultSelect[0] }
+            onChange={ handleInput }
+            name="method"
+            id="pagamento"
+          >
             <option name="method" value="Dinheiro">Dinheiro</option>
             <option name="method" value="Cartão de crédito">Cartão de crédito</option>
             <option name="method" value="Cartão de débito">Cartão de débito</option>
@@ -16,7 +21,12 @@ export class SelectWithOptions extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select onChange={ handleInput } name="tag" id="tag">
+          <select
+            value={ defaultSelect && defaultSelect[1] }
+            onChange={ handleInput }
+            name="tag"
+            id="tag"
+          >
             <option name="tag" value="Alimentação">Alimentação</option>
             <option name="tag" value="Lazer">Lazer</option>
             <option name="tag" value="Trabalho">Trabalho</option>
