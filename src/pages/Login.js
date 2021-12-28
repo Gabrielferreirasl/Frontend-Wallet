@@ -60,7 +60,6 @@ class Login extends React.Component {
                 px-3 text-gray-700 border-blue-500
           leading-tight focus:outline-none focus:shadow-outline font-sans italic"
                   placeholder="Email address"
-                  data-testid="email-input"
                   onChange={ this.handleInput }
                 />
               </label>
@@ -77,7 +76,6 @@ class Login extends React.Component {
                   type="password"
                   name="password"
                   id="password"
-                  data-testid="password-input"
                   onChange={ this.handleInput }
                   className="bg-white shadow appearance-none border border-red-500 rounded
             w-full py-2 px-3 text-gray-700 mb-3 leading-tight

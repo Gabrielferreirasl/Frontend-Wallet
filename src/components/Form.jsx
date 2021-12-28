@@ -61,35 +61,79 @@ class Form extends Component {
     const { value, description } = this.state;
     return (
       <section>
-        <form>
-          <label htmlFor="valor">
-            Valor
+        <form
+          className="flex rounded shadow-2xl bg-slate-500
+          px-6 pt-4 pb-6 space-x-10 w-fit mb-5"
+        >
+          <div className="space-x-3 ">
+            <label
+              htmlFor="valor"
+              className="text-slate-50
+                font-bold font-sans italic"
+            >
+              Valor
+            </label>
             <input
               onChange={ this.handleInput }
               value={ value }
               name="value"
               type="number"
               id="valor"
+              className="bg-white shadow appearance-none border rounded py-1
+              px-2 text-gray-700 border-blue-500 w-20
+        leading-tight focus:outline-none focus:shadow-outline font-sans italic"
             />
-          </label>
-          <label htmlFor="descrição">
-            Descrição
+
+          </div>
+          <div className="space-x-3 ">
+            <label
+              htmlFor="descrição"
+              className="text-slate-50
+                font-bold font-sans italic"
+            >
+              Descrição
+            </label>
             <input
               onChange={ this.handleInput }
               value={ description }
               name="description"
               type="text"
               id="descrição"
+              className="bg-white shadow appearance-none border rounded py-1
+              px-2 text-gray-700 border-blue-500
+        leading-tight focus:outline-none focus:shadow-outline font-sans italic"
             />
-          </label>
-          <label htmlFor="currency">
-            Moeda
-            <select onChange={ this.handleInput } name="currency" id="currency">
+          </div>
+          <div className="space-x-3 space-y-2">
+            <label
+              htmlFor="currency"
+              className="text-slate-50
+                font-bold font-sans italic"
+            >
+              Moeda
+            </label>
+            <select
+              onChange={ this.handleInput }
+              name="currency"
+              id="currency"
+              className="bg-white border border-blue-500
+        text-gray-700  pt-1 py-1 px-2 pr-6 rounded
+        leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            >
               <CoinOptions coins={ coins } />
             </select>
-          </label>
+          </div>
           <SelectWithOptions handleInput={ this.handleInput } />
-          <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
+          <button
+            className="bg-transparent hover:bg-blue-500 text-white
+          font-semibold hover:text-white py-2 px-4 border
+          border-white hover:border-transparent rounded"
+            onClick={ this.handleClick }
+            type="button"
+          >
+            Adicionar despesa
+
+          </button>
         </form>
       </section>
     );

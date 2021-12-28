@@ -81,7 +81,7 @@ class EditExpense extends Component {
           handleInput={ this.handleInput }
           defaultSelect={ [method, tag] }
         />
-        <button onClick={ this.saveExpense } type="button">Editar despesa</button>
+        <button onClick={ this.saveExpense } type="button">Salvar</button>
       </form>
     );
   }
