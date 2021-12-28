@@ -1,21 +1,29 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class CoinOptions extends Component {
   render() {
-    const { coins } = this.props;
+    const { currencies } = this.props;
     return (
       <>
-        {coins.map((coin) => (
+        {currencies.map((coin) => (
           <option
-            key={ coin.code + coin.codein }
-            value={ coin.code }
+            key={ coin }
+            value={ coin }
             name="currency"
           >
-            {coin.code}
+            {coin}
           </option>))}
       </>
     );
   }
 }
 
-export default CoinOptions;
+CoinOptions.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+const mapStateToProps = ({ wallet: { currencies } }) => ({ currencies });
+
+export default connect(mapStateToProps)(CoinOptions);

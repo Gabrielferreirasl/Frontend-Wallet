@@ -1,11 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import CoinOptions from './CoinOptions';
 
 export class SelectWithOptions extends Component {
   render() {
-    const { handleInput, defaultSelect } = this.props;
+    const { handleInput, selectValues } = this.props;
+
     return (
       <>
+        <div className="space-x-3 space-y-2">
+          <label
+            htmlFor="currency"
+            className="text-slate-50
+                font-bold font-sans italic"
+          >
+            Moeda
+          </label>
+          <select
+            value={ selectValues.currency }
+            onChange={ handleInput }
+            name="currency"
+            id="currency"
+            className="bg-white border border-blue-500
+        text-gray-700  pt-1 py-1 px-2 pr-6 rounded
+        leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          >
+            <CoinOptions />
+          </select>
+        </div>
         <div className="space-x-3 space-y-2">
           <label
             htmlFor="pagamento"
@@ -15,7 +38,7 @@ export class SelectWithOptions extends Component {
             Método de pagamento
           </label>
           <select
-            value={ defaultSelect && defaultSelect[0] }
+            value={ selectValues.method }
             onChange={ handleInput }
             name="method"
             id="pagamento"
@@ -37,7 +60,7 @@ export class SelectWithOptions extends Component {
             Tag
           </label>
           <select
-            value={ defaultSelect && defaultSelect[1] }
+            value={ selectValues.tag }
             onChange={ handleInput }
             name="tag"
             id="tag"
@@ -59,6 +82,13 @@ export class SelectWithOptions extends Component {
 
 SelectWithOptions.propTypes = {
   handleInput: PropTypes.func.isRequired,
+  selectValues: PropTypes.shape({
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+  }).isRequired,
 };
 
-export default SelectWithOptions;
+const mapStateToProps = ({ editObj }) => ({ editObj });
+
+export default connect(mapStateToProps, null)(SelectWithOptions);
