@@ -17,13 +17,8 @@ export const saveEditedExpense = (payload) => ({ type: SAVE_EDITED_EXPENSE, payl
 export const getCoinsAPI = () => async (dispatch) => {
   try {
     const coins = await getCoins();
-    const filter = Object.values(coins).filter((coin) => coin.codein !== '');
-    const payload = filter.map((item) => {
-      const coin = (item.name).split('/')[0];
-      item.name = coin;
-      return item;
-    });
-    dispatch(setCurrencies(payload));
+    const filter = Object.keys(coins).filter((coin) => coin !== 'USDT');
+    dispatch(setCurrencies(filter));
   } catch (error) {
     dispatch(setCurrencies(error));
   }

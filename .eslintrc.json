@@ -12,6 +12,12 @@
   },
   "plugins": ["react", "sonarjs"],
   "rules": {
+    "jsx-a11y/label-has-for": "off",
+  "jsx-a11y/label-has-associated-control": [ 2, {
+    "labelComponents": [ "Label" ],
+    "labelAttributes": ["label"],
+    "required": "either"
+  }],
     "indent": ["error", 2],
     "linebreak-style": 0,
     "quotes": ["error", "single"],
@@ -53,7 +59,7 @@
     "complexity": ["error", 8],
     "max-nested-callbacks": ["error", 2],
     "max-depth": ["error", 3],
-    "max-lines-per-function": ["error", 50],
+    "max-lines-per-function": ["error", 100],
     "object-curly-newline": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "sonarjs/cognitive-complexity": ["error", 15],
@@ -102,7 +108,7 @@
     "react/jsx-closing-tag-location": ["error"],
     "react/jsx-curly-newline": ["error"],
     "react/jsx-fragments": ["error"],
-    "react/jsx-max-depth": ["error", {"max": 4}],
+    "react/jsx-max-depth": ["error", {"max": 5}],
     "react/jsx-no-useless-fragment": ["error"],
     "react/jsx-curly-spacing": ["error", {"when": "always"}],
     "react/jsx-equals-spacing": ["error", "never"],
