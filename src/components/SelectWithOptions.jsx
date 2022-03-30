@@ -9,7 +9,7 @@ export class SelectWithOptions extends Component {
 
     return (
       <>
-        <div className="space-x-3 space-y-2">
+        <div className="space-x-3 space-y-2 mt-1">
           <label
             htmlFor="currency"
             className="text-slate-50
@@ -29,7 +29,7 @@ export class SelectWithOptions extends Component {
             <CoinOptions />
           </select>
         </div>
-        <div className="space-x-3 space-y-2">
+        <div className="space-x-3 space-y-2 mt-1">
           <label
             htmlFor="pagamento"
             className="text-slate-50
@@ -51,7 +51,7 @@ export class SelectWithOptions extends Component {
             <option name="method" value="Cartão de débito">Cartão de débito</option>
           </select>
         </div>
-        <div className="space-x-3  space-y-2">
+        <div className="space-x-3  space-y-2 mt-1">
           <label
             htmlFor="tag"
             className="text-slate-50

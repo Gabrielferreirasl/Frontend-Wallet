@@ -76,7 +76,7 @@ class Form extends Component {
           px-6 pt-4 pb-6 space-x-10 w-fit mb-5
           ${editing ? 'bg-red-400' : 'bg-slate-500'}` }
           >
-            <div className="space-x-3">
+            <div className="space-x-3 space-y-2 mt-1">
               <label
                 htmlFor="valor"
                 className="text-slate-50
@@ -95,7 +95,7 @@ class Form extends Component {
         leading-tight focus:outline-none focus:shadow-outline font-sans italic"
               />
             </div>
-            <div className="space-x-3 ">
+            <div className="space-x-3 space-y-2 mt-1">
               <label
                 htmlFor="descrição"
                 className="text-slate-50
@@ -120,7 +120,7 @@ class Form extends Component {
             />
             <button
               className="bg-transparent hover:bg-blue-500 text-white
-          font-semibold hover:text-white py-2 px-4 border
+          font-semibold mt-1 hover:text-white py-2 px-4 border
           border-white hover:border-transparent rounded"
               onClick={ editing ? this.saveEditedExpense : this.handleClick }
               type="button"
