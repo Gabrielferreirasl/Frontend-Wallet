@@ -3,13 +3,18 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as apiFuncs from '../services/coinsAPI';
 import renderWithRouter from '../../helpers/renderWithRouter';
-import mocks from './mocks';
+import mocks from './mocks/mocks';
 import App from '../App';
 import { fireEvent } from '@testing-library/react/dist/pure';
+import loginMocks from './mocks/loginMocks';
+import coinsMock from './mocks/coinsMock';
 
 const getCoinsMocked = jest.spyOn(apiFuncs, 'default')
-.mockResolvedValue(mocks.coins);
+.mockResolvedValue(coinsMock.coins);
 
+const currencyToInput = coinsMock.currencies[coinsMock.currencies.length - 1];
+const methodToInput = mocks.paymentMethods[mocks.paymentMethods.length - 1];
+const tagToInput = mocks.tags[mocks.tags.length - 1];
 
 describe('Ao não fazer Login', () => {
   it('Deve ser redirecionado para a rota "/"', async () => {
@@ -19,12 +24,16 @@ describe('Ao não fazer Login', () => {
 });
 
 describe('Ao Fazer Login', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('As informações do usuario devem aparecer corretamente', async () => {
     const { history } = renderWithRouter(<App />, mocks.stateWithLogin);
 
     expect(history.location.pathname).toBe('/carteira');
 
-    expect(screen.getByText(`Hello ${mocks.validEmail}. Your total expense:`))
+    expect(screen.getByText(`Hello ${loginMocks.validEmail}. Your total expense:`))
     .toBeInTheDocument();
   });
 
@@ -33,11 +42,11 @@ describe('Ao Fazer Login', () => {
 
     expect(getCoinsMocked).toBeCalled();
       await waitFor(() => {
-        expect(store.getState().wallet.currencies).toStrictEqual(mocks.coinsName);
+        expect(store.getState().wallet.currencies).toStrictEqual(coinsMock.currencies);
       });
       
       const coinsOptions = screen.getByTestId('coins-options');
-      mocks.coinsName.forEach((coin) => {
+      coinsMock.currencies.forEach((coin) => {
         const option = screen.getByText(coin);
         expect(coinsOptions).toContainEqual(option);
       });
@@ -45,6 +54,10 @@ describe('Ao Fazer Login', () => {
 });
 
 describe('Deve ser Possivel adicionar uma despesa', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('Deve haver um form para preencher informações sobre a despesa', async () => {
      renderWithRouter(<App />, mocks.stateWithLogin);
 
@@ -81,12 +94,9 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
    expect(descriptionInput).toHaveValue(mocks.descriptionInput);
 
    const currencySelect = screen.getByLabelText(/Currency/i);
-
-   const currency = mocks.coinsName[2];
-
    await waitFor(() => {
-    fireEvent.change(currencySelect, { target: { value: currency } })
-    expect(screen.getByRole('option', { name: currency }).selected).toBeTruthy();
+    fireEvent.change(currencySelect, { target: { value: currencyToInput } })
+    expect(screen.getByRole('option', { name: currencyToInput }).selected).toBeTruthy();
    });
 
    const methodSelect = screen.getByLabelText(/Payment method/i);
@@ -95,10 +105,8 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
     expect(methodSelect).toContainEqual(option);
   });
 
-  const method = mocks.paymentMethods[2];
-
-  fireEvent.change(methodSelect, { target: { value: method } })
-   expect(screen.getByRole('option', { name: method }).selected).toBeTruthy();
+  fireEvent.change(methodSelect, { target: { value: methodToInput } })
+   expect(screen.getByRole('option', { name: methodToInput }).selected).toBeTruthy();
 
    const TagSelect = screen.getByLabelText(/Tag/i);
    mocks.tags.forEach((tag) => {
@@ -106,9 +114,42 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
     expect(TagSelect).toContainEqual(option);
   });
 
-  const tag = mocks.tags[2];
-
-  fireEvent.change(TagSelect, { target: { value: tag } })
-   expect(screen.getByRole('option', { name: tag }).selected).toBeTruthy();
+  fireEvent.change(TagSelect, { target: { value: tagToInput } })
+   expect(screen.getByRole('option', { name: tagToInput }).selected).toBeTruthy();
 });
+
+  it('Deve ser possivel adicionar uma despesa', async () => {
+    const { store } = renderWithRouter(<App />, mocks.stateWithLogin);
+
+    const valueInput = screen.getByLabelText(/value/i);
+    userEvent.click(valueInput);
+    userEvent.type(valueInput, mocks.valueInput.toString());
+
+    const descriptionInput = screen.getByLabelText(/Description/i);
+    userEvent.click(descriptionInput);
+    userEvent.type(descriptionInput, mocks.descriptionInput);
+
+    const currencySelect = screen.getByLabelText(/Currency/i);
+    await waitFor(() => {
+      fireEvent.change(currencySelect, { target: { value: currencyToInput } })
+      expect(screen.getByRole('option', { name: currencyToInput }).selected).toBeTruthy();
+    });
+
+    const methodSelect = screen.getByLabelText(/Payment method/i);
+    fireEvent.change(methodSelect, { target: { value: methodToInput } })
+
+    const TagSelect = screen.getByLabelText(/Tag/i);
+
+    fireEvent.change(TagSelect, { target: { value: tagToInput } });
+
+    const addExpenseButton = screen.getByText(/add expense/i);
+    
+    userEvent.click(addExpenseButton);
+
+    expect(getCoinsMocked).toBeCalledTimes(2);
+
+    await waitFor(() => {
+      expect(store.getState().wallet.expenses[0]).toStrictEqual(mocks.expense)
+    });
+  });
 });

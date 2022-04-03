@@ -1,26 +1,6 @@
 const date = '2022-04-02 21:43:38';
 
 export default {
-  invalidEmail: 'teste',
-  valueInput: 5,
-  descriptionInput: 'this is a test description',
-  validEmail: 'teste@teste.com',
-  invalidPassword: '12345',
-  validPassword: '123456',
-  stateWithLogin: {
-    initialEntries: ['/carteira'],
-    initialState: {
-      user: {
-        email: 'teste@teste.com',
-      },
-    },
-  },
-  paymentMethods: [
-    'Cash', 'Credit card', 'Debit card'
-  ],
-  tags: [
-    'Food', 'Leisure', 'Work', 'Transport', 'Health',
-  ],
   coins: {
     USD: {
       code: 'USD',
@@ -231,7 +211,7 @@ export default {
       create_date: '2022-04-02 21:44:06',
     },
   },
-  coinsName: [
+  currencies: [
     'USD', 'CAD', 'EUR',
     'GBP', 'ARS', 'BTC',
     'LTC', 'JPY', 'CHF',

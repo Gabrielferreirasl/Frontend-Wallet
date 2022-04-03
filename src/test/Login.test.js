@@ -3,11 +3,12 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as apiFuncs from '../services/coinsAPI';
 import renderWithRouter from '../../helpers/renderWithRouter';
-import mocks from './mocks';
 import App from '../App';
+import loginMocks from './mocks/loginMocks';
+import coinsMock from './mocks/coinsMock';
 
 const getCoinsMocked = jest.spyOn(apiFuncs, 'default')
-  .mockResolvedValue(mocks.coins);
+  .mockResolvedValue(coinsMock.coins);
 
 describe.only('Testes do componente "Login"', () => {
   describe('Ao passar email e senha invalidos', () => {
@@ -21,12 +22,12 @@ describe.only('Testes do componente "Login"', () => {
       expect(inputPassword).toBeInTheDocument();
 
       userEvent.click(inputEmail);
-      userEvent.type(inputEmail, mocks.invalidEmail);
-      expect(inputEmail).toHaveValue(mocks.invalidEmail);
+      userEvent.type(inputEmail, loginMocks.invalidEmail);
+      expect(inputEmail).toHaveValue(loginMocks.invalidEmail);
 
       userEvent.click(inputPassword);
-      userEvent.type(inputPassword, mocks.invalidPassword);
-      expect(inputPassword).toHaveValue(mocks.invalidPassword);
+      userEvent.type(inputPassword, loginMocks.invalidPassword);
+      expect(inputPassword).toHaveValue(loginMocks.invalidPassword);
 
       expect(loginButton).toBeDisabled();
     });
@@ -38,8 +39,8 @@ describe.only('Testes do componente "Login"', () => {
       const inputPassword = screen.getByLabelText(/Password/i);
       const loginButton = screen.getByText(/Entrar/i);
 
-      userEvent.type(inputPassword, mocks.validPassword);
-      expect(inputPassword).toHaveValue(mocks.validPassword);
+      userEvent.type(inputPassword, loginMocks.validPassword);
+      expect(inputPassword).toHaveValue(loginMocks.validPassword);
 
       expect(loginButton).toBeDisabled();
     });
@@ -52,12 +53,12 @@ describe.only('Testes do componente "Login"', () => {
       const loginButton = screen.getByText(/Entrar/i);
 
       userEvent.click(inputEmail);
-      userEvent.type(inputEmail, mocks.validEmail);
-      expect(inputEmail).toHaveValue(mocks.validEmail);
+      userEvent.type(inputEmail, loginMocks.validEmail);
+      expect(inputEmail).toHaveValue(loginMocks.validEmail);
 
       userEvent.click(inputPassword);
-      userEvent.type(inputPassword, mocks.validPassword);
-      expect(inputPassword).toHaveValue(mocks.validPassword);
+      userEvent.type(inputPassword, loginMocks.validPassword);
+      expect(inputPassword).toHaveValue(loginMocks.validPassword);
 
       expect(loginButton).not.toBeDisabled();
       });
@@ -70,15 +71,15 @@ describe.only('Testes do componente "Login"', () => {
         const loginButton = screen.getByText(/Entrar/i);
 
         userEvent.click(inputEmail);
-        userEvent.type(inputEmail, mocks.validEmail);
+        userEvent.type(inputEmail, loginMocks.validEmail);
 
         userEvent.click(inputPassword);
-        userEvent.type(inputPassword, mocks.validPassword);
+        userEvent.type(inputPassword, loginMocks.validPassword);
 
         userEvent.click(loginButton);
-        expect(store.getState().user.email).toBe(mocks.validEmail);
+        expect(store.getState().user.email).toBe(loginMocks.validEmail);
 
-        expect(store.getState().user.email).toBe(mocks.validEmail);
+        expect(store.getState().user.email).toBe(loginMocks.validEmail);
         expect(getCoinsMocked).toBeCalledTimes(1);
 
        const { pathname } = history.location;
