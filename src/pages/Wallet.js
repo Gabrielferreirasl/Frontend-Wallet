@@ -11,6 +11,8 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
+    const { store: { user }, history } = this.props;
+    if (!user.email) return history.push('/');
     this.handleTotal();
   }
 
@@ -45,6 +47,7 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
+  history: PropTypes.objectOf(PropTypes.func).isRequired,
   store: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 

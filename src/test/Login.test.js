@@ -6,42 +6,87 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import * as apiFuncs from '../services/coinsAPI';
 import renderWithRouter from '../../helpers/renderWithRouter';
-import Login from '../pages/Login';
 import mocks from './mocks';
+import App from '../App';
 
-const getCoinsMocked = jest.spyOn(apiFuncs, 'getCoins')
-  .mockImplementation(() => Promise.resolve([]));
+const getCoinsMocked = jest.spyOn(apiFuncs, 'default')
+  .mockImplementation(() => Promise.resolve(mocks.coins));
 
 describe('Testes do componente "Login"', () => {
   describe('Ao passar email e senha invalidos', () => {
-    renderWithRouter(<Login />);
-
-    const inputPassword = screen.getByLabelText(/Password/i);
-    const inputEmail = screen.getByLabelText(/Email address/i);
-    const loginButton = screen.getByText(/Entrar/i);
-
     it('Botão "Entrar" deve estar desabilitado', async () => {
-    expect(inputEmail).toBeInTheDocument();
-    expect(inputPassword).toBeInTheDocument();
+      renderWithRouter(<App />);
 
-    userEvent.click(inputEmail);
-    userEvent.type(inputEmail, mocks.invalidEmail);
-    expect(inputEmail).toHaveValue(mocks.invalidEmail);
+      const inputPassword = screen.getByLabelText(/Password/i);
+      const inputEmail = screen.getByLabelText(/Email address/i);
+      const loginButton = screen.getByText(/Entrar/i);
+      expect(inputEmail).toBeInTheDocument();
+      expect(inputPassword).toBeInTheDocument();
 
-    userEvent.click(inputPassword);
-    userEvent.type(inputPassword, mocks.invalidPassword);
-    expect(inputPassword).toHaveValue(mocks.invalidPassword);
+      userEvent.click(inputEmail);
+      userEvent.type(inputEmail, mocks.invalidEmail);
+      expect(inputEmail).toHaveValue(mocks.invalidEmail);
 
-    expect(loginButton).toBeDisabled();
+      userEvent.click(inputPassword);
+      userEvent.type(inputPassword, mocks.invalidPassword);
+      expect(inputPassword).toHaveValue(mocks.invalidPassword);
+
+      expect(loginButton).toBeDisabled();
     });
 
     it(`Botão "Entrar" deve estar desabilitado se o email não
     for valido mesmo quando a senha é valida`, async () => {
-    userEvent.clear(inputPassword);
-    userEvent.type(inputPassword, mocks.validPassword);
-    expect(inputPassword).toHaveValue(mocks.validPassword);
+      renderWithRouter(<App />);
 
-    expect(loginButton).toBeDisabled();
+      const inputPassword = screen.getByLabelText(/Password/i);
+      const loginButton = screen.getByText(/Entrar/i);
+
+      userEvent.type(inputPassword, mocks.validPassword);
+      expect(inputPassword).toHaveValue(mocks.validPassword);
+
+      expect(loginButton).toBeDisabled();
+    });
+  describe('Ao passar email e senha validos', () => {
+    it('Botão "Entrar" deve estar habilitado', async () => {
+      renderWithRouter(<App />);
+
+      const inputPassword = screen.getByLabelText(/Password/i);
+      const inputEmail = screen.getByLabelText(/Email address/i);
+      const loginButton = screen.getByText(/Entrar/i);
+
+      userEvent.click(inputEmail);
+      userEvent.type(inputEmail, mocks.validEmail);
+      expect(inputEmail).toHaveValue(mocks.validEmail);
+
+      userEvent.click(inputPassword);
+      userEvent.type(inputPassword, mocks.validPassword);
+      expect(inputPassword).toHaveValue(mocks.validPassword);
+
+      expect(loginButton).not.toBeDisabled();
+      });
+
+      it('Botão "Entrar" deve redirecionar para "/carteira"', async () => {
+        const { history, store } = renderWithRouter(<App />);
+
+        const inputPassword = screen.getByLabelText(/Password/i);
+        const inputEmail = screen.getByLabelText(/Email address/i);
+        const loginButton = screen.getByText(/Entrar/i);
+
+        userEvent.click(inputEmail);
+        userEvent.type(inputEmail, mocks.validEmail);
+
+        userEvent.click(inputPassword);
+        userEvent.type(inputPassword, mocks.validPassword);
+
+        userEvent.click(loginButton);
+        expect(store.getState().user.email).toBe(mocks.validEmail);
+
+        expect(store.getState().user.email).toBe(mocks.validEmail);
+        expect(getCoinsMocked).toBeCalledTimes(1);
+
+       const { pathname } = history.location;
+       expect(pathname).toBe('/carteira');
+      });
     });
   });
 });
