@@ -7,6 +7,14 @@ export default {
   validEmail: 'teste@teste.com',
   invalidPassword: '12345',
   validPassword: '123456',
+  stateWithLogin: {
+    initialEntries: ['/carteira'],
+    initialState: {
+      user: {
+        email: 'teste@teste.com',
+      },
+    },
+  },
   paymentMethods: [
     'Cash', 'Credit card', 'Debit card'
   ],

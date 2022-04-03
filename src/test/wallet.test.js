@@ -20,15 +20,7 @@ describe('Ao não fazer Login', () => {
 
 describe('Ao Fazer Login', () => {
   it('As informações do usuario devem aparecer corretamente', async () => {
-    const { history } = renderWithRouter(<App />,
-    {
-      initialEntries: ['/carteira'],
-      initialState: {
-        user: {
-          email: mocks.validEmail,
-        },
-      },
-    });
+    const { history } = renderWithRouter(<App />, mocks.stateWithLogin);
 
     expect(history.location.pathname).toBe('/carteira');
 
@@ -37,15 +29,7 @@ describe('Ao Fazer Login', () => {
   });
 
   it('Deve haver um select com options de todas moedas, e sendo salvas no estado', async () => {
-    const { store } = renderWithRouter(<App />,
-    {
-      initialEntries: ['/carteira'],
-      initialState: {
-        user: {
-          email: mocks.validEmail,
-        },
-      },
-    });
+    const { store } = renderWithRouter(<App />, mocks.stateWithLogin);
 
     expect(getCoinsMocked).toBeCalled();
       await waitFor(() => {
@@ -62,15 +46,7 @@ describe('Ao Fazer Login', () => {
 
 describe('Deve ser Possivel adicionar uma despesa', () => {
   it('Deve haver um form para preencher informações sobre a despesa', async () => {
-     renderWithRouter(<App />,
-    {
-      initialEntries: ['/carteira'],
-      initialState: {
-        user: {
-          email: mocks.validEmail,
-        },
-      },
-    });
+     renderWithRouter(<App />, mocks.stateWithLogin);
 
     const addExpenseButton = screen.getByText(/add expense/i);
     expect(addExpenseButton).toBeInTheDocument();
@@ -92,15 +68,7 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
   });
 
   it('Todos option de cada select devem conter as informações corretas', async () => {
-    renderWithRouter(<App />,
-   {
-     initialEntries: ['/carteira'],
-     initialState: {
-       user: {
-         email: mocks.validEmail,
-       },
-     },
-   });
+    renderWithRouter(<App />, mocks.stateWithLogin);
 
    const valueInput = screen.getByLabelText(/value/i);
    userEvent.click(valueInput);
@@ -142,5 +110,5 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
 
   fireEvent.change(TagSelect, { target: { value: tag } })
    expect(screen.getByRole('option', { name: tag }).selected).toBeTruthy();
- });
+});
 });
