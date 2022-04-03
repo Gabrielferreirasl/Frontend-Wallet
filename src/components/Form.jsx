@@ -14,8 +14,8 @@ class Form extends Component {
       value: 1,
       description: '',
       currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      method: 'Cash',
+      tag: 'Food',
     };
     this.updateStateEdit = this.updateStateEdit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -42,8 +42,8 @@ class Form extends Component {
       value: 1,
       description: '',
       currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      method: 'Cash',
+      tag: 'Food',
     });
   }
 
@@ -82,7 +82,7 @@ class Form extends Component {
                 className="text-slate-50
                 font-bold font-sans italic"
               >
-                Valor
+                Value
               </label>
               <input
                 onChange={ this.handleInput }
@@ -101,7 +101,7 @@ class Form extends Component {
                 className="text-slate-50
                 font-bold font-sans italic"
               >
-                Descrição
+                Description
               </label>
               <input
                 onChange={ this.handleInput }
@@ -125,7 +125,7 @@ class Form extends Component {
               onClick={ editing ? this.saveEditedExpense : this.handleClick }
               type="button"
             >
-              {editing ? 'Salvar' : 'Adicionar despesa'}
+              {editing ? 'Save' : 'Add Expense'}
             </button>
           </form>
         </section>
