@@ -35,5 +35,28 @@ describe('Testes do componente "Wallet"', () => {
       expect(screen.getByText(`Hello ${mocks.validEmail}. Your total expense:`))
       .toBeInTheDocument();
     });
+
+    it('Deve haver um select com options de todas moedas, e sendo salvas no estado', async () => {
+      const { store } = renderWithRouter(<App />,
+      {
+        initialEntries: ['/carteira'],
+        initialState: {
+          user: {
+            email: mocks.validEmail,
+          },
+        },
+      });
+
+      expect(getCoinsMocked).toBeCalled();
+       await waitFor(() => {
+          expect(store.getState().wallet.currencies).toStrictEqual(mocks.coinsName);
+        });
+        
+        const coinsOptions = screen.getByTestId('coins-options');
+        mocks.coinsName.forEach((coin) => {
+          const option = screen.getByText(coin);
+          expect(coinsOptions).toContainEqual(option);
+        });
+    });
   });
 });
