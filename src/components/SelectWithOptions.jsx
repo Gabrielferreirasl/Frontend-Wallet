@@ -47,9 +47,9 @@ export class SelectWithOptions extends Component {
         text-gray-700 pt-1 py-1 px-2 pr-6 rounded
         leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           >
-            <option name="method" value="Dinheiro">Cash</option>
-            <option name="method" value="Cartão de crédito">Credit card</option>
-            <option name="method" value="Cartão de débito">Debit card</option>
+            <option name="method" value="Cash">Cash</option>
+            <option name="method" value="Credit card">Credit card</option>
+            <option name="method" value="Debit card">Debit card</option>
           </select>
         </div>
         <div className="space-x-3  space-y-2 mt-1">
@@ -69,11 +69,11 @@ export class SelectWithOptions extends Component {
         text-gray-700 pt-1 py-1 px-2 pr-6 rounded
         leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           >
-            <option name="tag" value="Alimentação">Food</option>
-            <option name="tag" value="Lazer">Leisure</option>
-            <option name="tag" value="Trabalho">Work</option>
-            <option name="tag" value="Transporte">Transport</option>
-            <option name="tag" value="Saúde">Health</option>
+            <option name="tag" value="Food">Food</option>
+            <option name="tag" value="Leisure">Leisure</option>
+            <option name="tag" value="Work">Work</option>
+            <option name="tag" value="Transport">Transport</option>
+            <option name="tag" value="Health">Health</option>
           </select>
         </div>
       </>

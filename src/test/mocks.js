@@ -2,9 +2,17 @@ const date = '2022-04-02 21:43:38';
 
 export default {
   invalidEmail: 'teste',
+  valueInput: 5,
+  descriptionInput: 'this is a test description',
   validEmail: 'teste@teste.com',
   invalidPassword: '12345',
   validPassword: '123456',
+  paymentMethods: [
+    'Cash', 'Credit card', 'Debit card'
+  ],
+  tags: [
+    'Food', 'Leisure', 'Work', 'Transport', 'Health',
+  ],
   coins: {
     USD: {
       code: 'USD',

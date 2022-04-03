@@ -90,4 +90,57 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
     const TagSelect = screen.getByLabelText(/Tag/i);
     expect(TagSelect).toBeInTheDocument();
   });
+
+  it('Todos option de cada select devem conter as informações corretas', async () => {
+    renderWithRouter(<App />,
+   {
+     initialEntries: ['/carteira'],
+     initialState: {
+       user: {
+         email: mocks.validEmail,
+       },
+     },
+   });
+
+   const valueInput = screen.getByLabelText(/value/i);
+   userEvent.click(valueInput);
+   userEvent.type(valueInput, mocks.valueInput.toString());
+   expect(valueInput).toHaveValue(mocks.valueInput);
+
+   const descriptionInput = screen.getByLabelText(/Description/i);
+   userEvent.click(descriptionInput);
+   userEvent.type(descriptionInput, mocks.descriptionInput);
+   expect(descriptionInput).toHaveValue(mocks.descriptionInput);
+
+   const currencySelect = screen.getByLabelText(/Currency/i);
+
+   const currency = mocks.coinsName[2];
+
+   await waitFor(() => {
+    fireEvent.change(currencySelect, { target: { value: currency } })
+    expect(screen.getByRole('option', { name: currency }).selected).toBeTruthy();
+   });
+
+   const methodSelect = screen.getByLabelText(/Payment method/i);
+   mocks.paymentMethods.forEach((method) => {
+    const option = screen.getByRole('option', { name: method });
+    expect(methodSelect).toContainEqual(option);
+  });
+
+  const method = mocks.paymentMethods[2];
+
+  fireEvent.change(methodSelect, { target: { value: method } })
+   expect(screen.getByRole('option', { name: method }).selected).toBeTruthy();
+
+   const TagSelect = screen.getByLabelText(/Tag/i);
+   mocks.tags.forEach((tag) => {
+    const option = screen.getByRole('option', { name: tag });
+    expect(TagSelect).toContainEqual(option);
+  });
+
+  const tag = mocks.tags[2];
+
+  fireEvent.change(TagSelect, { target: { value: tag } })
+   expect(screen.getByRole('option', { name: tag }).selected).toBeTruthy();
+ });
 });
