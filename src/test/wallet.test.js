@@ -59,3 +59,35 @@ describe('Ao Fazer Login', () => {
       });
     });
 });
+
+describe('Deve ser Possivel adicionar uma despesa', () => {
+  it('Deve haver um form para preencher informações sobre a despesa', async () => {
+     renderWithRouter(<App />,
+    {
+      initialEntries: ['/carteira'],
+      initialState: {
+        user: {
+          email: mocks.validEmail,
+        },
+      },
+    });
+
+    const addExpenseButton = screen.getByText(/add expense/i);
+    expect(addExpenseButton).toBeInTheDocument();
+
+    const valueInput = screen.getByLabelText(/value/i);
+    expect(valueInput).toBeInTheDocument();
+
+    const descriptionInput = screen.getByLabelText(/Description/i);
+    expect(descriptionInput).toBeInTheDocument();
+
+    const currencySelect = screen.getByLabelText(/Currency/i);
+    expect(currencySelect).toBeInTheDocument();
+
+    const methodSelect = screen.getByLabelText(/Payment method/i);
+    expect(methodSelect).toBeInTheDocument();
+
+    const TagSelect = screen.getByLabelText(/Tag/i);
+    expect(TagSelect).toBeInTheDocument();
+  });
+});
