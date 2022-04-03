@@ -1,8 +1,5 @@
-/* eslint-disable max-nested-callbacks */
-/* eslint-disable indent */
 import React from 'react';
 import { screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import * as apiFuncs from '../services/coinsAPI';
 import renderWithRouter from '../../helpers/renderWithRouter';
@@ -10,9 +7,9 @@ import mocks from './mocks';
 import App from '../App';
 
 const getCoinsMocked = jest.spyOn(apiFuncs, 'default')
-  .mockImplementation(() => Promise.resolve(mocks.coins));
+  .mockResolvedValue(mocks.coins);
 
-describe('Testes do componente "Login"', () => {
+describe.only('Testes do componente "Login"', () => {
   describe('Ao passar email e senha invalidos', () => {
     it('Botão "Entrar" deve estar desabilitado', async () => {
       renderWithRouter(<App />);

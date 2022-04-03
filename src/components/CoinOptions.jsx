@@ -7,7 +7,7 @@ class CoinOptions extends Component {
     const { currencies } = this.props;
     return (
       <>
-        {currencies.map((coin) => (
+        {currencies.length && currencies.map((coin) => (
           <option
             key={ coin }
             value={ coin }

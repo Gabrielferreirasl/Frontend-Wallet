@@ -22,6 +22,7 @@ export class SelectWithOptions extends Component {
             onChange={ handleInput }
             name="currency"
             id="currency"
+            data-testid="coins-options"
             className="bg-white border border-blue-500
         text-gray-700  pt-1 py-1 px-2 pr-6 rounded
         leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

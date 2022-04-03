@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from '../components/Form';
+import { Redirect } from 'react-router-dom';
 
 class Wallet extends React.Component {
   constructor() {
@@ -11,8 +12,6 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    const { store: { user }, history } = this.props;
-    if (!user.email) return history.push('/');
     this.handleTotal();
   }
 
@@ -27,6 +26,7 @@ class Wallet extends React.Component {
   render() {
     const { store: { user } } = this.props;
     const { totalValue } = this.state;
+    if (!user.email) return <Redirect to="/" />;
     return (
       <div className="ml-10 mt-10 flex-col mr-10">
         <header className="">

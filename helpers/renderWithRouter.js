@@ -1,10 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import { render } from '@testing-library/react';
 import rootReducers from '../src/reducers/index';
 
 const renderWithRouter = (
@@ -17,11 +17,11 @@ const renderWithRouter = (
   } = {},
 ) => ({
   ...render(
-    <Router history={ history }>
       <Provider store={ store }>
+        <Router history={ history }>
         {component}
-      </Provider>
-    </Router>,
+        </Router>
+      </Provider>,
   ),
   history,
   store,

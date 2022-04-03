@@ -1,5 +1,4 @@
-import getCoins, { teste } from '../services/coinsAPI';
-import mocks from '../test/mocks';
+import getCoins from '../services/coinsAPI';
 
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_CURRENCIES = 'SET_CURRENCIES';
