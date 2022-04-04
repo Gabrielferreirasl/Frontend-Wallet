@@ -153,3 +153,27 @@ describe('Deve ser Possivel adicionar uma despesa', () => {
     });
   });
 });
+
+describe('Ao adicionar uma despesa', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('As informações estão com o cabeçalho correto na tabela', async () => {
+     renderWithRouter(<App />, mocks.stateWithLoginAndExpense);
+    mocks.thNames.forEach((thName) => {
+      const th = screen.getByRole('columnheader', { name: thName });
+      expect(th).toBeInTheDocument();
+    });
+  });
+
+  it('As informações da despesa devem estar corretas na tabela', async () => {
+    renderWithRouter(<App />, mocks.stateWithLoginAndExpense);
+    mocks.valuesFromTableExpense.forEach((value) => {
+      const cell = screen.getByRole('cell', { name: value });
+      expect(cell).toBeInTheDocument();
+    });
+    
+    expect(screen.getByText('3.26 BRL')).toBeInTheDocument();
+  });
+});

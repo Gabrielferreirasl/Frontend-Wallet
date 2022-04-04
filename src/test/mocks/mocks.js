@@ -20,19 +20,39 @@ const defaultLoginState = {
   },
 };
 
+const expense = {
+  id: 0,
+  value: "5",
+  description: descriptionInput,
+  currency: coinsMock.currencies[coinsMock.currencies.length - 1],
+  method: paymentMethods[paymentMethods.length - 1],
+  tag: tags[tags.length - 1],
+  exchangeRates: { ...coinsMock.coins },
+};
+
+const stateWithLoginAndExpense = {
+  initialEntries: [ ...defaultLoginState.initialEntries ],
+  initialState: {
+    ...defaultLoginState.initialState,
+    wallet: {
+      currencies: coinsMock.currencies,
+      editing: false,
+      expenses: [expense]
+    }
+  }
+};
+
 export default {
   valueInput: 5,
   descriptionInput,
   stateWithLogin: defaultLoginState,
+  stateWithLoginAndExpense,
   paymentMethods,
   tags,
-  expense: {
-    id: 0,
-    value: "5",
-    description: descriptionInput,
-    currency: coinsMock.currencies[coinsMock.currencies.length - 1],
-    method: paymentMethods[paymentMethods.length - 1],
-    tag: tags[tags.length - 1],
-    exchangeRates: { ...coinsMock.coins },
-  },
+  expense,
+  thNames: ['Description', 'Tag', 'Payment method', 'Value','Currency', 'exchange used',
+  'Converted value', 'Conversion currency'],
+  valuesFromTableExpense: [
+    'this is a test description', 'Health', 'Debit card', '5', 'Dogecoin', '0.65', '3.26', 'Real',
+  ],
 };
