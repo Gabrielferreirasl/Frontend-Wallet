@@ -218,4 +218,18 @@ describe('Ao adicionar uma despesa', () => {
 
     expect(screen.getByText('46.60 BRL')).toBeInTheDocument();
   });
+
+  it('Deve ser possivel deletar uma despesa', async () => {
+    const { store } = renderWithRouter(<App />, mocks.stateWithLoginAndExpense);
+    
+    const deleteButton = screen.getByRole('button', { name: /delete/i });
+    expect(deleteButton).toBeInTheDocument();
+    userEvent.click(deleteButton);
+
+    await waitFor(() => {
+      expect(store.getState().wallet.expenses).toStrictEqual([]);
+    });
+
+    expect(screen.getByText('0.00 BRL')).toBeInTheDocument();
+  });
 });
