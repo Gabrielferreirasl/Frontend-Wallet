@@ -1,4 +1,4 @@
-const getCoins = () => (
+export const getCoins = () => (
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((s) => s.json())
     .then((response) => Promise.resolve(response))

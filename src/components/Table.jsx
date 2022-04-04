@@ -42,9 +42,9 @@ class Table extends Component {
 
   render() {
     const { expenses } = this.props;
-    const thArr = ['Descrição', 'Tag', 'Método de pagamento', 'Valor',
-      'Moeda', 'Câmbio utilizado',
-      'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
+    const thArr = ['Description', 'Tag', 'Payment method', 'Value',
+      'Currency', 'exchange used',
+      'Converted value', 'Conversion currency', 'Edit/Delete'];
 
     return (
       <section>
@@ -85,7 +85,7 @@ class Table extends Component {
                       className="bg-gray-300
                       hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
                     >
-                      Deletar
+                      Delete
                     </button>
                     <button
                       value={ expense.id }
@@ -94,7 +94,7 @@ class Table extends Component {
                       className="bg-gray-300 hover:bg-gray-400
                       text-gray-800 font-bold py-2 px-4 rounded"
                     >
-                      Editar
+                      Edit
                     </button>
                   </div>
                 </td>
