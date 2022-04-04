@@ -173,7 +173,49 @@ describe('Ao adicionar uma despesa', () => {
       const cell = screen.getByRole('cell', { name: value });
       expect(cell).toBeInTheDocument();
     });
-    
+
     expect(screen.getByText('3.26 BRL')).toBeInTheDocument();
+  });
+
+  it('Deve ser possivel editar uma despesa', async () => {
+    const { store } = renderWithRouter(<App />, mocks.stateWithLoginAndExpense);
+    
+    const editButton = screen.getByRole('button', { name: /edit/i });
+    expect(editButton).toBeInTheDocument();
+    userEvent.click(editButton);
+
+    await waitFor(() => {
+      expect(store.getState().wallet.editing).toStrictEqual(mocks.expense);
+    })
+
+    const saveButton = screen.getByText(/save/i);
+    expect(saveButton).toBeInTheDocument();
+
+    const valueInput = screen.getByLabelText(/value/i);
+    userEvent.click(valueInput);
+    userEvent.type(valueInput, mocks.expenseEdited.value.toString());
+
+    const descriptionInput = screen.getByLabelText(/Description/i);
+    userEvent.click(descriptionInput);
+    userEvent.type(descriptionInput, mocks.expenseEdited.description);
+
+    const currencySelect = screen.getByLabelText(/Currency/i);
+    fireEvent.change(currencySelect, { target: { value: mocks.expenseEdited.currency } });
+
+    const methodSelect = screen.getByLabelText(/Payment method/i);
+    fireEvent.change(methodSelect, { target: { value: mocks.expenseEdited.method } })
+
+    const TagSelect = screen.getByLabelText(/Tag/i);
+
+    fireEvent.change(TagSelect, { target: { value: mocks.expenseEdited.tag } });
+    
+    userEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(store.getState().wallet.editing).toBeFalsy();
+      expect(store.getState().wallet.expenses[0]).toStrictEqual(mocks.expenseEdited);
+    });
+
+    expect(screen.getByText('46.60 BRL')).toBeInTheDocument();
   });
 });

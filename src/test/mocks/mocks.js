@@ -30,6 +30,16 @@ const expense = {
   exchangeRates: { ...coinsMock.coins },
 };
 
+const expenseEdited = {
+  id: 0,
+  value: "10",
+  description: 'this is a edit test',
+  currency: coinsMock.currencies[0],
+  method: paymentMethods[0],
+  tag: tags[0],
+  exchangeRates: { ...coinsMock.coins },
+}
+
 const stateWithLoginAndExpense = {
   initialEntries: [ ...defaultLoginState.initialEntries ],
   initialState: {
@@ -48,6 +58,7 @@ export default {
   stateWithLogin: defaultLoginState,
   stateWithLoginAndExpense,
   paymentMethods,
+  expenseEdited,
   tags,
   expense,
   thNames: ['Description', 'Tag', 'Payment method', 'Value','Currency', 'exchange used',
