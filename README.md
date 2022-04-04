@@ -9,7 +9,13 @@ It is possible to add expenses in any currency, with descriptions, edit and remo
 
 ## After downloading the project:
 
+To start Application:
 ```
 npm i
 npm start
+```
+To run all tests:
+```
+npm test
+npm run test:coverage
 ```
